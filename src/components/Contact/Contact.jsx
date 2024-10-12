@@ -6,19 +6,12 @@ import { useState } from "react";
 
 function Contact({ contact }) { 
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false); 
 
-  const handleDelete = () => {
-    setShowModal(true);
-  };
   const confirmDelete = () => {
     dispatch(deleteContact(contact.id));
-    setShowModal(false);
+
   };
 
-  const cancelDelete = () => {
-    setShowModal(false);
-  };
   return (  
     <li className={s.list}>  
       <div className={s.contdiv}>  
@@ -34,7 +27,7 @@ function Contact({ contact }) {
 
       <button  
         className={s.buttonlist}  
-        onClick={handleDelete}>
+        onClick={confirmDelete }>
         <FaRegTrashCan />
       </button>  
     </li>  

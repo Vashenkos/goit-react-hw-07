@@ -1,11 +1,24 @@
-import { FaPhone, FaUser } from "react-icons/fa6";  
+import { FaPhone, FaUser, FaRegTrashCan } from "react-icons/fa6";  
 import { deleteContact } from "../../redux/contactsOps.js";  
 import { useDispatch } from "react-redux";  
-import s from "./Contact.module.css";  
+import s from "./Contact.module.css";
+import { useState } from "react";  
 
-function Contact({ contact }) {  
-  const dispatch = useDispatch();  
+function Contact({ contact }) { 
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false); 
 
+  const handleDelete = () => {
+    setShowModal(true);
+  };
+  const confirmDelete = () => {
+    dispatch(deleteContact(contact.id));
+    setShowModal(false);
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
+  };
   return (  
     <li className={s.list}>  
       <div className={s.contdiv}>  
@@ -21,9 +34,8 @@ function Contact({ contact }) {
 
       <button  
         className={s.buttonlist}  
-        onClick={() => dispatch(deleteContact(contact.id))}  
-      >  
-        Delete  
+        onClick={handleDelete}>
+        <FaRegTrashCan />
       </button>  
     </li>  
   );  

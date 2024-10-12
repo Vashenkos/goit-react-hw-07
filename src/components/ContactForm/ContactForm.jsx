@@ -22,16 +22,10 @@ const initialValues = {
 };
 function ContactForm() {
   const dispatch = useDispatch();
-
-  const nameFieldId = nanoid(); 
-  const numberFieldId = nanoid(); 
-
   const handleSubmit = (values, actions) => {
-    const newContact = { id: nanoid(), ...values };
-    dispatch(addContact(newContact));
+    dispatch(addContact(values));
     actions.resetForm();
   };
-
   return (
   <div className={s.container}>
     <Formik

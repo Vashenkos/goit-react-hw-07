@@ -1,19 +1,17 @@
 import ContactForm from "./components/ContactForm/ContactForm";  
 import SearchBox from "./components/SearchBox/SearchBox";  
 import ContactList from "./components/ContactList/ContactList";  
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-inport { useEffect } from "react"; 
-
+import { useEffect } from "react";  
+import { fetchContacts } from "./redux/contactsOps";  
+import { useDispatch, useSelector } from "react-redux";  
+import { PropagateLoader } from "react-spinners";  
 
 function App() {  
-const dispatch = useDispatch();
-const isLoading = useSelector((state) => state.contacts.isLoading);
-const error = useSelector ((state) =>state.contacts.error);
-
- 
-
-  useEffect(() => {
+  const dispatch = useDispatch();  
+  const isLoading = useSelector((state) => state.contacts.isLoading);  
+  const error = useSelector((state) => state.contacts.error);  
+  
+  useEffect(() => {  
     dispatch(fetchContacts());  
   }, [dispatch]);  
 
@@ -21,12 +19,14 @@ const error = useSelector ((state) =>state.contacts.error);
     <div className="container">  
       <h1 className="title">Phonebook</h1>  
       <ContactForm />  
-      <SearchBox />
-      {isLoading && !error &&(
-
-      )}
-
-     { !isLoading && !error&&<ContactList/> }
+      <SearchBox />  
+      {isLoading && !error && (  
+        <div className="loader">  
+          <PropagateLoader color="#008000" />  
+        </div>  
+      )}  
+      {error && <p className="error-message">Error: {error}</p>}  
+      {!isLoading && !error && <ContactList />}  
     </div>  
   );  
 }  

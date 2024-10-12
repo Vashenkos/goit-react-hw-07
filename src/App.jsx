@@ -25,7 +25,7 @@ function App() {
           <PropagateLoader color="#008000" />  
         </div>  
       )}  
-      {error && <p className="error-message">Error: {error}</p>}  
+      {error && <p>Error: {error}</p>}  
       {!isLoading && !error && <ContactList />}  
     </div>  
   );  
